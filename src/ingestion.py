@@ -1,10 +1,11 @@
 from langchain_community.document_loaders import DirectoryLoader, TextLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_ollama import OllamaEmbeddings
-from langchain_community.vectorstores import Chroma
+from langchain_chroma import Chroma
 
 DATA_PATH = "data/knowledge_base"
 PERSIST_DIRECTORY = "vectorstore"
+EMBED_MODEL = "nomic-embed-text"
 
 def ingest_documents():
     # Load documents 
@@ -25,7 +26,7 @@ def ingest_documents():
     print(f"Created {len(chunks)} chunks")
 
     # Create embeddings using Ollama
-    embeddings = OllamaEmbeddings(model="nomic-embed-text")
+    embeddings = OllamaEmbeddings(model=EMBED_MODEL)
 
     # Store embeddings in ChromaDB
     vectorstore = Chroma.from_documents(

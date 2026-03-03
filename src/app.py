@@ -1,12 +1,4 @@
-"""
-Streamlit Chat Interface for the RAG Chatbot.
-
-This is a starter template — feel free to modify, extend, or replace it entirely.
-Run with: streamlit run src/app.py
-"""
-
 import streamlit as st
-
 
 # ──────────────────────────────────────────────
 # UI Components
@@ -53,25 +45,9 @@ def render_chat_history() -> None:
 
 
 def get_bot_response(query: str, top_k: int) -> tuple[str, list[str]]:
-    """
-    Generate a chatbot response for the given query.
+    from rag_pipeline import ask, RAGConfig
 
-    TODO: Replace this placeholder with your RAG pipeline.
-    Your implementation should:
-      1. Retrieve relevant chunks from the vector store (use top_k)
-      2. Pass the retrieved context + query to the LLM
-      3. Return the answer and a list of source document titles
-
-    Example:
-        from rag_chain import get_rag_chain
-        chain = get_rag_chain(top_k=top_k)
-        result = chain.invoke({"question": query})
-        answer = result["answer"]
-        sources = [doc.metadata["source"] for doc in result["source_documents"]]
-        return answer, sources
-    """
-    answer = "⚠️ RAG pipeline not yet implemented. Connect your chain in `get_bot_response()`!"
-    sources = []
+    answer, sources = ask(query, config=RAGConfig(top_k=top_k, min_relevance=0.6))
     return answer, sources
 
 
