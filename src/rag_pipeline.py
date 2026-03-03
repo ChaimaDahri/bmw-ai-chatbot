@@ -83,6 +83,11 @@ ANSWER:
 
     llm = OllamaLLM(model=CHAT_MODEL)
     answer = llm.invoke(prompt).strip()
+
+    fallback = "Sorry, I cannot help with this question based on the provided documents."
+    if fallback in answer:
+        return answer, []
+
     return answer, sources
 
 
